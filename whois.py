@@ -89,10 +89,12 @@ class Wildcard:
                 letters.append('_')
             elif c == '?':
                 self._assert(i > 0, 'Cannot use ? as the first character')
-                if letters[-1] == '_':
+                self._assert(self.wildcard[i - 1] != '?', 'Cannot use two consecutive ? characters')
+                last_letter = letters[-1]
+                if last_letter == '_':
                     wildcards[-1] = ('',) + wildcards[-1]
                 else:
-                    wildcards.append(('', letters[-1]))
+                    wildcards.append(('', last_letter))
                     letters[-1] = '_'
             else:
                 letters.append(c)
