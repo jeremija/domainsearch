@@ -151,8 +151,8 @@ def parse_args(argv):
                         help='Print only available')
     parser.add_argument('--progress', default=False, action='store_true',
                         help='Show progress')
-    parser.add_argument('domain',
-                        help='Domain to look up. For example redCV.com')
+    parser.add_argument('domains', nargs='+',
+                        help='Domain(s) to look up. For example redCV.com')
 
     return parser.parse_args(argv)
 
@@ -179,29 +179,30 @@ def main(argv):
     port = args.port
 
     logger = Logger()
-
-    domain = args.domain
-    if '.' not in domain:
-        domain += '.com'
-
     whois = Whois(host, port)
-    wildcard = Wildcard(domain)
-    combinations = wildcard.combinations
 
-    for i, domain in enumerate(wildcard.values):
-        count = i + 1
-        # if count % 10 == 0:
-        logger.progress('Count: {} of {}', count, combinations)
+    domains = args.domains
+    for domain in domains:
+        if '.' not in domain:
+            domain += '.com'
 
-        if args.dry_run:
-            logger.log(domain)
-            continue
+        wildcard = Wildcard(domain)
+        combinations = wildcard.combinations
 
-        registered  = whois.lookup(domain)
-        if not registered:
-            logger.log('✓ {}', domain)
-        elif not args.only:
-            logger.log('- {}', domain)
+        for i, domain in enumerate(wildcard.values):
+            count = i + 1
+            # if count % 10 == 0:
+            logger.progress('Count: {} of {}', count, combinations)
+
+            if args.dry_run:
+                logger.log(domain)
+                continue
+
+            registered  = whois.lookup(domain)
+            if not registered:
+                logger.log('✓ {}', domain)
+            elif not args.only:
+                logger.log('- {}', domain)
 
 
 if __name__ == '__main__':
