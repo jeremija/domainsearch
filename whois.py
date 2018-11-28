@@ -114,7 +114,7 @@ class Wildcard:
                 letters.append('_')
             elif c == '?':
                 self._assert(i > 0, 'Cannot use ? as the first character')
-                if '' in wildcards[-1]:
+                if wildcards and '' in wildcards[-1]:
                     continue
                 last_letter = letters[-1]
                 if last_letter == '_':
