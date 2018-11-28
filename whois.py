@@ -218,7 +218,7 @@ def main(argv):
         for i, domain in enumerate(wildcard.values):
             count = i + 1
             # if count % 10 == 0:
-            logger.progress('Count: {} of {}', count, combinations)
+            logger.progress('  {} ({} of {})', domain, count, combinations)
 
             if args.dry_run:
                 logger.log(domain)
@@ -226,7 +226,7 @@ def main(argv):
 
             registered  = whois.lookup(domain, verbose=args.verbose)
             if registered is None:
-                logger.log('invalid request {}', domain)
+                logger.log('  {} (invalid request)', domain)
             elif not registered:
                 logger.log('✓ {}', domain)
             elif not args.only:
