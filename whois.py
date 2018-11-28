@@ -67,7 +67,7 @@ class Wildcard:
                     bracket_open,
                     'Closing brace: {}'.format(i))
                 bracket_open = False
-                wildcards.append(tmp)
+                wildcards.append(tuple(tmp))
                 tmp = None
                 letters.append('_')
             elif bracket_open:
@@ -87,6 +87,13 @@ class Wildcard:
             elif c == '#':
                 wildcards.append(numbers)
                 letters.append('_')
+            elif c == '?':
+                self._assert(i > 0, 'Cannot use ? as the first character')
+                if letters[-1] == '_':
+                    wildcards[-1] = ('',) + wildcards[-1]
+                else:
+                    wildcards.append(('', letters[-1]))
+                    letters[-1] = '_'
             else:
                 letters.append(c)
 
