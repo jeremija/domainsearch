@@ -50,7 +50,7 @@ alphabet = tuple('abcdefghijklmnopqrstuvwxyz')
 numbers = tuple('0123456789')
 alphanumeric = alphabet + numbers
 vowels = tuple('aeiou')
-consonants = tuple(c for c in alphabet if c not in vowels)
+consonants = tuple(c for c in alphabet if c not in set(vowels))
 
 class Wildcard:
     def __init__(self, wildcard):
@@ -208,6 +208,8 @@ def main(argv):
     whois = Whois(host, port)
 
     domains = args.domains
+    total = 0
+    total_avail = 0
     for domain in domains:
         if '.' not in domain:
             domain += '.com'
@@ -225,13 +227,16 @@ def main(argv):
                 continue
 
             registered  = whois.lookup(domain, verbose=args.verbose)
+            total += 1
             if registered is None:
                 logger.log('  {} (invalid request)', domain)
             elif not registered:
+                total_avail += 1
                 logger.log('✓ {}', domain)
             elif not args.only:
                 logger.log('✕ {}', domain)
 
+    logger.progress('{} available domains of {}\n', total_avail, total)
 
 if __name__ == '__main__':
     try:
