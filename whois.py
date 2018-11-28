@@ -14,7 +14,7 @@ class Whois:
         self.server = server
         self.port = port
 
-    def lookup(self, domain):
+    def lookup(self, domain, verbose=False):
         """Looks up the domain. Returns true if domain is registered,
         false otherwise"""
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -26,6 +26,12 @@ class Whois:
         finally:
             # sock.shutdown(socket.SHUT_RDWR)
             sock.close()
+
+        if verbose:
+            print(value)
+
+        if 'No match for nameserver' in value:
+            return None
         if 'No match for' in value:
             return False
         return True
@@ -54,11 +60,13 @@ class Wildcard:
         self.letters = letters = []
 
         bracket_open = False
+        parentheses_open = False
         tmp = None
+        tmp_list = None
         for i, c in enumerate(self.wildcard):
             if c == '[':
                 self._assert(
-                    not bracket_open,
+                    not bracket_open and not parentheses_open,
                     'Wildcard compile error at: {}'.format(i))
                 bracket_open = True
                 tmp = ''
@@ -72,6 +80,23 @@ class Wildcard:
                 letters.append('_')
             elif bracket_open:
                 tmp += c
+            elif c == '(':
+                self._assert(
+                    not bracket_open and not parentheses_open,
+                    'Wildcard compile error at: {}'.format(i))
+                parentheses_open = True
+                tmp_list = ['']
+            elif c == ')':
+                self._assert(
+                    parentheses_open,
+                    'Closing parentheses: {}'.format(i))
+                wildcards.append(tuple(tmp_list))
+                letters.append('_')
+                parentheses_open = False
+            elif c == ',' and parentheses_open:
+                tmp_list.append('')
+            elif parentheses_open:
+                tmp_list[-1] += c
             elif c == 'A':
                 wildcards.append(alphabet)
                 letters.append('_')
@@ -149,8 +174,8 @@ def parse_args(argv):
                         help='Only print the permutations')
     parser.add_argument('-o', '--only', default=False, action='store_true',
                         help='Print only available')
-    parser.add_argument('--progress', default=False, action='store_true',
-                        help='Show progress')
+    parser.add_argument('--verbose', default=False, action='store_true',
+                        help='Show whois results')
     parser.add_argument('domains', nargs='+',
                         help='Domain(s) to look up. For example redCV.com')
 
@@ -198,11 +223,13 @@ def main(argv):
                 logger.log(domain)
                 continue
 
-            registered  = whois.lookup(domain)
-            if not registered:
+            registered  = whois.lookup(domain, verbose=args.verbose)
+            if registered is None:
+                logger.log('invalid request {}', domain)
+            elif not registered:
                 logger.log('✓ {}', domain)
             elif not args.only:
-                logger.log('- {}', domain)
+                logger.log('✕ {}', domain)
 
 
 if __name__ == '__main__':
