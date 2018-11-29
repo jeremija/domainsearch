@@ -4,7 +4,7 @@ with open('README.md', 'r') as f:
     long_description = f.read()
 
 setuptools.setup(
-    name='magnet',
+    name='domainsearch',
     version='1.0.0',
     author='Jerko Steiner',
     author_email='jerko.steiner@gmail.com',

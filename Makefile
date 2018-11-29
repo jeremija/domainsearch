@@ -11,7 +11,7 @@ lint: FORCE
 	flake8 domainsearch/
 
 env:
-	python3 -m virtualenv env/
+	python3 -m venv env/
 
 deps: env FORCE
 	env/bin/pip3 install -r requirements.dev.txt
