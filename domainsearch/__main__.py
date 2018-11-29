@@ -158,6 +158,7 @@ class Wildcard:
 
 def parse_args(argv):
     parser = argparse.ArgumentParser(
+        prog='domainsearch',
         description='Search for unregistered domains. Wildcards supported are:'
         '\n  A: alphabet characters'
         '\n  C: consonants'
