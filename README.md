@@ -1,6 +1,6 @@
 # domainsearch
 
-[![Build Status](https://travis-ci.org/jeremija/domainsearch.svg?branch=master)](https://travis-ci.org/jeremija/peer-calls)
+[![Build Status](https://travis-ci.com/jeremija/domainsearch.svg?branch=master)](https://travis-ci.com/jeremija/domainsearch)
 
 Search for available domains using wildcards.
 
