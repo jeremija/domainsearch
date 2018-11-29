@@ -5,8 +5,9 @@ import itertools
 import socket
 import sys
 
-HOST='whois.crsnic.net'
-PORT=43
+
+HOST = 'whois.crsnic.net'
+PORT = 43
 
 
 class Whois:
@@ -51,6 +52,7 @@ numbers = tuple('0123456789')
 alphanumeric = alphabet + numbers
 vowels = tuple('aeiou')
 consonants = tuple(c for c in alphabet if c not in set(vowels))
+
 
 class Wildcard:
     def __init__(self, wildcard):
@@ -147,12 +149,12 @@ class Wildcard:
         for p in product:
             word = ''
             i = -1
-            for l in letters:
-                if l == '_':
+            for ll in letters:
+                if ll == '_':
                     i += 1
                     word += p[i]
                 else:
-                    word += l
+                    word += ll
             yield word
 
 
@@ -200,6 +202,7 @@ class Logger:
         print('{}{}'.format(value, ' ' * spaces))
         self.stderr_width = 0
 
+
 def main(argv):
     args = parse_args(argv)
     host = args.host
@@ -227,7 +230,7 @@ def main(argv):
                 logger.log(domain)
                 continue
 
-            registered  = whois.lookup(domain, verbose=args.verbose)
+            registered = whois.lookup(domain, verbose=args.verbose)
             total += 1
             if registered is None:
                 logger.log('  {} (invalid request)', domain)
@@ -238,6 +241,7 @@ def main(argv):
                 logger.log('✕ {}', domain)
 
     logger.progress('{} available domains of {}\n', total_avail, total)
+
 
 if __name__ == '__main__':
     try:
