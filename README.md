@@ -1,5 +1,7 @@
 # domainsearch
 
+[![Build Status](https://travis-ci.org/jeremija/domainsearch.svg?branch=master)](https://travis-ci.org/jeremija/peer-calls)
+
 Search for available domains using wildcards.
 
 # Install
