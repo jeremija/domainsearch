@@ -167,7 +167,8 @@ def parse_args(argv):
         '\n  V: vowels'
         '\n  #: numbers 0-9'
         '\n  *: combination of all of the above'
-        '\n  [chars]: chars in the brackets',
+        '\n  [chars]: chars in the brackets'
+        '\n  (word1,word2,word3): custom list of words',
         formatter_class=argparse.RawTextHelpFormatter)
 
     parser.add_argument('--host', default=HOST,

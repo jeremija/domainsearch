@@ -31,6 +31,7 @@ Search for unregistered domains. Wildcards supported are:
   #: numbers 0-9
   *: combination of all of the above
   [chars]: chars in the brackets
+  (word1,word2,word3): custom list of words
 
 positional arguments:
   domains        Domain(s) to look up. For example redCV.com
