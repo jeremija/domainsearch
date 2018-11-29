@@ -142,7 +142,7 @@ class Wildcard:
 
         if len(wildcards) == 0:
             yield self.wildcard
-            raise StopIteration()
+            return
 
         product = itertools.product(*wildcards)
 

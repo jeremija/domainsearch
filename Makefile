@@ -4,6 +4,9 @@ SHELL := sh
 test: FORCE
 	pytest domainsearch/
 
+test-watch: FORCE
+	pytest-watch domainsearch/
+
 lint: FORCE
 	flake8 domainsearch/
 
