@@ -2,7 +2,7 @@ PATH := $(CURDIR)/env/bin:$(PATH)
 SHELL := sh
 
 test: FORCE
-	pytest domainsearch/
+	pytest
 
 test-watch: FORCE
 	pytest-watch domainsearch/
