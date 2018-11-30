@@ -6,6 +6,6 @@ python:
 install:
   - pip install -r requirements.dev.txt
 script:
-  - pytest
+  - make lint test build
 notifications:
   email: false
