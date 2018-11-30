@@ -5,7 +5,7 @@ with open('README.md', 'r') as f:
 
 setuptools.setup(
     name='domainsearch',
-    version='1.0.0',
+    version='1.0.1',
     author='Jerko Steiner',
     author_email='jerko.steiner@gmail.com',
     description=(
