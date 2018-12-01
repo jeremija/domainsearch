@@ -4,6 +4,8 @@
 
 Search for available domains using wildcards.
 
+<img src="https://raw.githubusercontent.com/jeremija/domainsearch/readme-video/example.gif" width="396px">
+
 # Install
 
 ```
