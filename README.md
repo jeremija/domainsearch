@@ -1,6 +1,6 @@
 # domainsearch
 
-[![Build Status](https://travis-ci.com/jeremija/domainsearch.svg?branch=master)](https://travis-ci.com/jeremija/domainsearch)
+[![Build Status](https://travis-ci.com/jeremija/domainsearch.svg?branch=master)](https://travis-ci.com/jeremija/domainsearch) [![PyPI version](https://badge.fury.io/py/domainsearch.svg)](https://badge.fury.io/py/domainsearch)
 
 Search for available domains using wildcards.
 
