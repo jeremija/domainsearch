@@ -4,6 +4,8 @@
 
 Search for available domains using wildcards.
 
+<img src="example.gif" width="396px">
+
 # Install
 
 ```
